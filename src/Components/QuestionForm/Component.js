@@ -6,7 +6,6 @@ import TextInput from '../TextInput/Component';
 import Button from '../Buttons/Button';
 import StyledHeader from '../Common/StyledHeader';
 
-
 const Description = styled.textarea`
   width: 100%;
   padding: 8px 20px;
@@ -21,9 +20,7 @@ const ButtonWrapper = styled.div`
   justify-content: space-between;
 `;
 
-
 const getHeader = isEdit => isEdit ? 'Edit Question' : 'Add Question';
-
 
 const QuestionForm = ({ title, description, tags, submitReady, onChange, onSubmit, onRemove, match }) => (
   <Form onSubmit={onSubmit}>

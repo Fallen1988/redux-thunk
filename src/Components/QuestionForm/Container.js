@@ -25,13 +25,14 @@ const prepareTags = R.compose(
 const mapStateToProps = (state) => ({
   user: state.user,
   // TODO: HOMEWORK 9: pick loader from here and display in UI when the post is creating
+  isLoading: state.loader.CREATE_QUESTION,
 });
 
 const enhance = compose(
   connect(mapStateToProps),
   withRouter,
 
-  withStateHandlers({ question: {}, isFetching: true }),
+  withStateHandlers({ question: {}, isFetching: true}),
 
   lifecycle({
     async componentWillMount() {
@@ -43,6 +44,11 @@ const enhance = compose(
       this.setState({ question, isFetching: false });
     },
   }),
+
+  branch(
+    ({ isLoading}) => isLoading,
+     renderComponent(AppLoader)
+  ),
 
   branch(
     ({ isFetching }) => isFetching,
@@ -80,6 +86,7 @@ const enhance = compose(
         history.push('/');
       } else {
         // TODO: HOMEWORK 9: make it work, dispatch loaderActions.createQuestion with db, document and history as arguments
+        dispatch(loaderActions.createQuestion(db, document, history))
       }
     },
     onRemove: ({ match, history }) => () => {
